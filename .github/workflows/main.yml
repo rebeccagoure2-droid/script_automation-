@@ -5,7 +5,10 @@ name: nitfly@scraping
 on:
  push: 
   branches: main
- 
+  
+permissions:
+  contents: write
+
 
 jobs:
   autoscrape:
