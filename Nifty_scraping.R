@@ -13,8 +13,14 @@ text_content <- page %>%
   html_nodes("div#mw-content-text .mw-parser-output") %>%
   html_text(trim = TRUE)
 
-# Find existing scrape files
+# Create data folder if it doesn't exist
+if (!dir.exists("data")) {
+  dir.create("data")
+}
+
+# Find existing scrape files in data folder
 existing_files <- list.files(
+  path = "data",
   pattern = "^dgrayman_scrape[0-9]+\\.txt$"
 )
 
@@ -26,10 +32,12 @@ if (length(existing_files) == 0) {
   n <- max(numbers) + 1
 }
 
-# Create intuitive dynamic file name
-file_name <- paste0("dgrayman_scrape", n, ".txt")
+# Create file name inside data folder
+file_name <- paste0("data/dgrayman_scrape", n, ".txt")
 
 # Save content
 writeLines(text_content, file_name)
 
 cat("Scraped content saved as", file_name, "\n")
+
+
